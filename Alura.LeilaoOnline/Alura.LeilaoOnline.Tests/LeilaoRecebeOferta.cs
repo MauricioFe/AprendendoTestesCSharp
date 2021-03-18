@@ -17,6 +17,7 @@ namespace Alura.LeilaoOnline.Tests
             //Arranje - cenário de entrada
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulado", leilao);
+            leilao.InciaPregao();
             foreach (var valor in ofertas)
             {
                 leilao.RecebeLance(fulano, valor);
