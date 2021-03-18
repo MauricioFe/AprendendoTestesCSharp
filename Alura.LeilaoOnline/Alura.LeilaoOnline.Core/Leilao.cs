@@ -25,16 +25,20 @@ namespace Alura.LeilaoOnline.Core
             _lances = new List<Lance>();
             Estado = EstadoLeilao.LeilaoAntesDoPregao;
         }
+
+        public bool NovoLanceAceito(Interessada cliente, double valor)
+        {
+            return (Estado == EstadoLeilao.LeilaoEmAndamento) && (cliente != _ultimoCliente);
+        }
+
         public void RecebeLance(Interessada cliente, double valor)
         {
-            if (Estado == EstadoLeilao.LeilaoEmAndamento)
+            if (NovoLanceAceito(cliente, valor))
             {
-                if (cliente != _ultimoCliente)
-                {
-                    _lances.Add(new Lance(cliente, valor));
-                    _ultimoCliente = cliente;
-                }
+                _lances.Add(new Lance(cliente, valor));
+                _ultimoCliente = cliente;
             }
+
         }
         public void InciaPregao()
         {
