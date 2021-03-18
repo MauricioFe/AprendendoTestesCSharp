@@ -6,14 +6,14 @@ using Xunit;
 
 namespace Alura.LeilaoOnline.Tests
 {
-    public class LeilaoTestes
+    public class LeilaoTerminaPregao
     {
 
         [Theory] //métodos que usam a notação theory são obrigados a passar dados de entrada
         [InlineData(new double[] { 800, 900, 1000, 1200 }, 1200)]
         [InlineData(new double[] { 800, 900, 1000, 990 }, 1000)]
         [InlineData(new double[] { 800 }, 800)]
-        public void LeilaoComVariosLances(double[] ofertas, double valorEsperado)
+        public void RetornaMaiorValorDadoLeilaoComPeloMenosUmLance(double[] ofertas, double valorEsperado)
         {
             //Arranje - cenário de entrada
             var leilao = new Leilao("Van Gogh");
@@ -32,7 +32,7 @@ namespace Alura.LeilaoOnline.Tests
         }
         
         [Fact]
-        public void LeilaoSemLances()
+        public void RetornaZeroDadoLeilaoSemLances()
         {
             //Arranje - cenário de entrada
             var leilao = new Leilao("Van Gogh");
