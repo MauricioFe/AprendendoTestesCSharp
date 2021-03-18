@@ -5,7 +5,22 @@ namespace Alura.LeilaoOnline.ConsoleApp
 {
     class Program
     {
-        static void Main()
+        private static void Verifica(double esperado, double obtido)
+        {
+            var cor = Console.ForegroundColor;
+            if (esperado == obtido)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("TESTE OK");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"TESTE FALHOU! Esperado: {esperado} obtido: {obtido}");
+            }
+            Console.ForegroundColor = cor;
+        }
+        private static void LeilaoComVariosLances()
         {
             //Arranje - cenário de entrada
             var leilao = new Leilao("Van Gogh");
@@ -22,14 +37,30 @@ namespace Alura.LeilaoOnline.ConsoleApp
             //assert
             var valorEsperado = 1000;
             var valorObtido = leilao.Ganhador.Valor;
-            if (valorEsperado == valorObtido)
-            {
-                Console.WriteLine("TESTE OK");
-            }
-            else
-            {
-                Console.WriteLine("TESTE FALHOU");
-            }
+
+            Verifica(valorEsperado, valorObtido);
+        }
+        private static void LeilaoComApenasUmLance()
+        {
+            //Arranje - cenário de entrada
+            var leilao = new Leilao("Van Gogh");
+            var fulano = new Interessada("Fulano", leilao);
+            var maria = new Interessada("Maria", leilao);
+
+            leilao.RecebeLance(fulano, 800);
+            //act - método sob teste
+            leilao.TerminaPregao();
+
+            //assert
+            var valorEsperado = 800;
+            var valorObtido = leilao.Ganhador.Valor;
+
+            Verifica(valorEsperado, valorObtido);
+        }
+        static void Main()
+        {
+            LeilaoComVariosLances();
+            LeilaoComApenasUmLance();
         }
     }
 }
